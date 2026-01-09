@@ -2,7 +2,7 @@ import { useState } from 'react'
 import {useEffect} from 'react'
 import { useDebounce } from 'react-use'
 import Search from './components/Search.jsx'
-import MovieCard from './components/movieCard.jsx'
+import MovieCard from './components/MovieCard.jsx'
 import { updateSearchCount, getTrendingMovies } from './appwrite.js'
 
 const BASE_API_URL = 'https://api.themoviedb.org/3';
@@ -23,10 +23,10 @@ const App = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [movieLists, setMovieLists] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [deboundSearchTerm, setDeboundSearchTerm] = useState('');
+  const [dbouncedSearchTerm, setDbouncedSearchTerm] = useState('');
   const [trendingMovies, setTrendingMovies] = useState([]);
 
-  useDebounce(() => {setDeboundSearchTerm(searchTerm)}, 500, [searchTerm]);
+  useDebounce(() => {setDbouncedSearchTerm(searchTerm)}, 500, [searchTerm]);
 
   const fetchMovies = async (query = '') => {
     setIsLoading(true);
@@ -75,8 +75,8 @@ const App = () => {
   }
 
   useEffect(() => {
-    fetchMovies(deboundSearchTerm);
-  }, [deboundSearchTerm]);
+    fetchMovies(dbouncedSearchTerm);
+  }, [dbouncedSearchTerm]);
 
   useEffect(() => {
     fetchTrendingMovies();
