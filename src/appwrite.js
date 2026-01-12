@@ -1,4 +1,4 @@
-import { Query, Databases, ID, Client } from "appwrite";
+import { Query, Databases, ID, Client, TablesDB } from "appwrite";
 
 const DATABASE_ID = import.meta.env.VITE_APPWRITE_DATABASE_ID;
 const COLLECTION_ID = import.meta.env.VITE_APPWRITE_COLLECTION_ID;
@@ -10,11 +10,12 @@ const client = new Client()
     .setProject(PROJECT_ID);
 
 const database = new Databases(client);
+const tableDB = new TablesDB(client);
 
 export const updateSearchCount = async (searchTerm, movie) => {
     // Use Appwrite SDK to check searchTerm exists in the database
     try {
-        const result = await database.listDocuments(DATABASE_ID, COLLECTION_ID, [Query.equal("searchTerm", searchTerm)]);
+        const result = await database.listDocuments(DATABASE_ID, COLLECTION_ID, [Query.search("searchTerm", searchTerm)]);
         if (result.documents.length > 0) {
             const doc = result.documents[0];
 
