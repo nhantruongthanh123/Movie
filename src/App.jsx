@@ -1,12 +1,14 @@
 import { useState } from 'react'
 import {useEffect} from 'react'
 import { useDebounce } from 'react-use'
-import Search from './components/Search.jsx'
-import MovieCard from './components/MovieCard.jsx'
 import { updateSearchCount, getTrendingMovies } from './appwrite.js'
 
-const BASE_API_URL = 'https://api.themoviedb.org/3';
+import Search from './components/Search.jsx'
+import MovieCard from './components/MovieCard.jsx'
+import MovieDetail from './components/MovieDetail.jsx'
 
+
+const BASE_API_URL = 'https://api.themoviedb.org/3';
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 
 const API_OPTIONS = {

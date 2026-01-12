@@ -1,0 +1,61 @@
+import {useState, useEffect} from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+
+const BASE_API_URL = 'https://api.themoviedb.org/3';
+const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
+
+const API_OPTIONS = {
+  method : 'GET',
+  headers: {
+    Accept: 'application/json',
+    Authorization: `Bearer ${API_KEY}`
+  }
+};
+
+const MovieDetail = () => {
+    const {id} = useParams();
+    const navigate = useNavigate();
+    const [movie, setMovie] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchMovieDetails = async () => {
+            try {
+                const response = await fetch(`${BASE_API_URL}/movie/${id}`, API_OPTIONS);
+                if (!response.ok) {
+                    console.error('Movie not found, redirecting to home.');
+                }
+                const data = await response.json();
+                setMovie(data);
+            }
+            catch (error) {
+                console.error('Error fetching movie details:', error);
+            }   
+            finally {
+                setIsLoading(false);
+            }     
+        }
+
+        fetchMovieDetails();
+    }, [id])
+
+    if (isLoading) {
+        return (
+            <div>Loading...</div>
+        );
+    }
+
+    if (!movie) {
+        return (
+            <div>Movie Not Found</div>
+        );
+    }
+
+    return (
+        <div>
+            <p>{movie.title}</p>
+        </div>
+    );
+}
+
+export default MovieDetail;
