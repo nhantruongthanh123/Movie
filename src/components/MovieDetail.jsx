@@ -23,10 +23,11 @@ const MovieDetail = () => {
             try {
                 const response = await fetch(`${BASE_API_URL}/movie/${id}`, API_OPTIONS);
                 if (!response.ok) {
-                    console.error('Movie not found, redirecting to home.');
+                    console.error('Movie not found');
                 }
                 const data = await response.json();
                 setMovie(data);
+                console.log(data);
             }
             catch (error) {
                 console.error('Error fetching movie details:', error);
@@ -52,9 +53,40 @@ const MovieDetail = () => {
     }
 
     return (
-        <div>
-            <p>{movie.title}</p>
-        </div>
+        <main>
+            <div className="pattern"></div>
+            <div className="wrapper">
+                <div className="movie-detail">
+                    <button 
+                        onClick={() => navigate(-1)}
+                        className="back-button"
+                    >
+                        ← Quay lại
+                    </button>
+
+                    <div className="movie-info">
+                        <img 
+                            src={movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : 'no-movie.png'}
+                            alt={movie.title}
+                            className="poster-img"
+                        />
+
+                        <div className="movie-data">
+                            <h2>{movie.title}</h2>
+                            <p><strong> Released day:</strong> {movie.release_date}</p>
+                            <p><strong>Rating:</strong> {movie.vote_average} / 10 ({movie.vote_count} ratings)</p>
+                            <p><strong>Genres:</strong> {movie.genres.map(genre => genre.name).join(', ')}</p>
+                            <p><strong>Runtime:</strong> {movie.runtime} minutes</p>
+                            <p><strong> Revenue: </strong>{movie.revenue.toLocaleString('en-US')} USD</p>
+                            <p><strong>Overview:</strong> {movie.overview}</p>
+                        </div>
+
+                    </div>
+                    
+                </div>
+            </div>
+                
+        </main>
     );
 }
 

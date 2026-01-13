@@ -105,7 +105,7 @@
     @apply bg-dark-100 p-5 rounded-2xl shadow-inner shadow-light-100/10;
 
     & img {
-      @apply rounded-lg h-auto w-full;
+      @apply rounded-lg h-auto w-full transition-transform duration-300 ease-in-out hover:scale-105;
     }
 
     & h3 {
@@ -140,7 +140,45 @@
       @apply text-gray-100 font-medium text-base;
     }
   }
+
+  .movie-detail {
+    @apply mt-10;
+
+    & .back-button {
+      @apply text-white mb-8 px-4 py-2 bg-gray-700 rounded hover:bg-gray-600;
+    }
+
+    & .movie-info {
+      @apply flex p-6 sm:p-10 rounded-2xl shadow-inner shadow-light-100/50;
+
+      & .poster-img {
+        @apply rounded-lg shadow-lg hover:scale-105 transition-transform duration-300 mr-10 ;
+      }
+
+      & .movie-data {
+        & h2 {
+          @apply text-3xl sm:text-4xl font-bold mb-6 text-gradient;
+        }
+
+        & p {
+          @apply text-base sm:text-lg leading-relaxed text-white/70 mb-1;
+        }
+        & strong {
+          @apply font-semibold text-white mr-2;
+        }
+
+        & p:last-child {
+          @apply mt-6 text-gray-100 leading-relaxed;
+        }
+      }
+    }
+
+    
+  }
 }
+
+
+
 
 @utility text-gradient {
   @apply bg-linear-to-r from-[#D6C7FF] to-[#AB8BFF] bg-clip-text text-transparent;
