@@ -27,7 +27,6 @@ const MovieDetail = () => {
                 }
                 const data = await response.json();
                 setMovie(data);
-                console.log(data);
             }
             catch (error) {
                 console.error('Error fetching movie details:', error);
